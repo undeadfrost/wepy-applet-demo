@@ -3,18 +3,33 @@
 <template>
   <view class="container">
     Hello world
+    <button @tap="wxRequest">111</button>
   </view>
 </template>
 
 <script>
-  import wepy from 'wepy'
+  import wepy from 'wepy';
+  import { testRequest } from '../common/api/index';
 
   export default class Index extends wepy.page {
     config = {
       navigationBarTitleText: 'test'
-    }
+    };
+
+    methods = {
+      async wxRequest() {
+        let data = {
+          pageSize: 10,
+          pageNum: 1,
+          type: 2
+        };
+        let res = await testRequest(data);
+        console.log(res);
+      }
+    };
+
     onLoad() {
-      console.log('onLoad')
+      console.log('onLoad');
     }
   }
 </script>

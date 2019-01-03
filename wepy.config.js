@@ -1,8 +1,8 @@
-var prod = process.env.NODE_ENV === 'production'
+var prod = process.env.NODE_ENV === 'production';
 
 module.exports = {
   wpyExt: '.wpy',
-  eslint: true,
+  eslint: false,
   cliLogs: true,
   compilers: {
     less: {
@@ -19,36 +19,35 @@ module.exports = {
       plugins: [
         'babel-plugin-transform-class-properties',
         'transform-export-extensions',
-        'syntax-export-extensions'
+        'syntax-export-extensions',
+        'transform-node-env-inline'
       ]
     }
   },
-  plugins: {
-  },
+  plugins: {},
   appConfig: {
     noPromiseAPI: ['createSelectorQuery']
   }
-}
+};
 
 if (prod) {
-
+  
   module.exports.cliLogs = false;
-
+  
   delete module.exports.compilers.babel.sourcesMap;
   // 压缩sass
   // module.exports.compilers['sass'] = {outputStyle: 'compressed'}
-
+  
   // 压缩less
   module.exports.compilers['less'] = {
     compress: true
-  }
-
+  };
+  
   // 压缩js
   module.exports.plugins = {
     uglifyjs: {
       filter: /\.js$/,
-      config: {
-      }
+      config: {}
     },
     imagemin: {
       filter: /\.(jpg|png|jpeg)$/,
@@ -61,5 +60,5 @@ if (prod) {
         }
       }
     }
-  }
+  };
 }
